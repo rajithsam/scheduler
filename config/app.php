@@ -144,6 +144,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Scheduler\Repository\Providers\DoctrineRepositoryServiceProvider::class,
 
         /*
          * 3rd Party Service Providers...

@@ -29,7 +29,8 @@ return [
                 'App'
             ],
             'paths'      => [
-                base_path('app')
+                app_path() . '/Users/Entity',
+                app_path() . '/Shifts/Entity',
             ],
             'repository' => Doctrine\ORM\EntityRepository::class,
             'proxies'    => [
