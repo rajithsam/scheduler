@@ -9,7 +9,7 @@ return [
     |
     | Configure your Entity Managers here. You can set a different connection
     | and driver per manager and configure events and filters. Change the
-    | paths setting to the appropriate path and replace App namespace
+    | paths setting to the appropriate path and replace Scheduler namespace
     | by your own namespace.
     |
     | Available meta drivers: annotations|yaml|xml|config|static_php
@@ -26,7 +26,7 @@ return [
             'meta'       => env('DOCTRINE_METADATA', 'annotations'),
             'connection' => env('DB_CONNECTION', 'mysql'),
             'namespaces' => [
-                'App'
+                'Scheduler'
             ],
             'paths'      => [
                 app_path() . '/Users/Entity',

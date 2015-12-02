@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'model' => App\User::class,
+    'model' => \Scheduler\Users\Entity\User::class,
 
     /*
     |--------------------------------------------------------------------------
