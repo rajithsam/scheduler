@@ -138,6 +138,16 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
+         * 3rd Party Service Providers...
+         */
+        LaravelDoctrine\ORM\DoctrineServiceProvider::class,
+        LaravelDoctrine\Extensions\GedmoExtensionsServiceProvider::class,
+        LaravelDoctrine\Extensions\BeberleiExtensionsServiceProvider::class,
+        LaravelDoctrine\Migrations\MigrationsServiceProvider::class,
+        LaravelDoctrine\ACL\AclServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+
+        /*
          * Application Service Providers...
          */
         Scheduler\Providers\AppServiceProvider::class,
@@ -146,14 +156,7 @@ return [
         Scheduler\Providers\RouteServiceProvider::class,
         Scheduler\Repository\Providers\DoctrineRepositoryServiceProvider::class,
 
-        /*
-         * 3rd Party Service Providers...
-         */
-        LaravelDoctrine\ORM\DoctrineServiceProvider::class,
-        LaravelDoctrine\Extensions\GedmoExtensionsServiceProvider::class,
-        LaravelDoctrine\Extensions\BeberleiExtensionsServiceProvider::class,
-        LaravelDoctrine\Migrations\MigrationsServiceProvider::class,
-        LaravelDoctrine\ACL\AclServiceProvider::class,
+
 
     ],
 

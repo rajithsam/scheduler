@@ -4,6 +4,8 @@ namespace Scheduler\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Route;
+use Scheduler\Users\Repository\UserRepository;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -19,12 +21,16 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * Define your route model bindings, pattern filters, etc.
      *
-     * @param  \Illuminate\Routing\Router  $router
-     * @return void
+     * @param  \Illuminate\Routing\Router $router
      */
     public function boot(Router $router)
     {
-        //
+        $userRepository = app(UserRepository::class);
+
+        Route::bind('user', function($value) use ($userRepository)
+        {
+            return $userRepository->getOneByIdOrFail($value);
+        });
 
         parent::boot($router);
     }

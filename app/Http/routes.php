@@ -14,3 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/users/{user}', [
+    'uses' => 'UsersController@show',
+    'as' => 'users.show'
+]);

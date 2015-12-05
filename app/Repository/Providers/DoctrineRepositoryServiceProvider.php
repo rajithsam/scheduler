@@ -1,6 +1,6 @@
 <?php namespace Scheduler\Repository\Providers;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Illuminate\Support\ServiceProvider;
 use Scheduler\Repository\Contracts\DoctrineRepository;
 use Scheduler\Shifts\Entity\Shift;
@@ -24,10 +24,17 @@ class DoctrineRepositoryServiceProvider extends ServiceProvider
     ];
 
     /**
-     * @param EntityManager $entityManager
+     * Register bindings in the container.
+     *
+     * @return void
      */
-    public function boot(EntityManager $entityManager)
+    public function register()
     {
+        /**
+         * @var EntityManagerInterface $entityManager
+         */
+        $entityManager = $this->app->make(EntityManagerInterface::class);
+
         foreach (self::$entityRepositoryMap as $entityClassName => $repoClassName) {
 
             $this->app->singleton(
@@ -41,15 +48,5 @@ class DoctrineRepositoryServiceProvider extends ServiceProvider
                 }
             );
         }
-    }
-
-    /**
-     * Register bindings in the container.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
     }
 }
