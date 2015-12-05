@@ -57,13 +57,15 @@ trait ResponseHelpers
     /**
      * @param $item
      * @param $callback
+     * @param array|string|null $includes
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function respondWithItem($item, $callback)
+    protected function respondWithItem($item, $callback, $includes = null)
     {
         $resource = new Item($item, $callback);
 
+        $this->addParseIncludes($includes);
         $rootScope = $this->fractal->createData($resource);
 
         return $this->respondWithArray($rootScope->toArray());
@@ -72,13 +74,15 @@ trait ResponseHelpers
     /**
      * @param $collection
      * @param $callback
+     * @param array|string|null $includes
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function respondWithCollection($collection, $callback)
+    protected function respondWithCollection($collection, $callback, $includes = null)
     {
         $resource = new Collection($collection, $callback);
 
+        $this->addParseIncludes($includes);
         $rootScope = $this->fractal->createData($resource);
 
         return $this->respondWithArray($rootScope->toArray());
@@ -106,5 +110,15 @@ trait ResponseHelpers
     protected function respondWithDataArray(array $array, array $headers = [])
     {
         return $this->respondWithArray(['data' => $array], $headers);
+    }
+
+    /**
+     * @param array|string|null $includes
+     */
+    private function addParseIncludes($includes)
+    {
+        if ($includes) {
+            $this->fractal->parseIncludes($includes);
+        }
     }
 }
