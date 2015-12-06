@@ -44,3 +44,13 @@ Route::post('/shifts/create', [
     'uses' => 'ShiftsController@store',
     'as' => 'shifts.store'
 ]);
+
+Route::put('/shifts/{shift}', [
+    'uses' => 'ShiftsController@update',
+    'as' => 'shifts.update'
+])->where('shift', '[0-9]+');
+
+Route::put('/shifts/{shift}/assign/{user}', [
+    'uses' => 'ShiftsController@assignUser',
+    'as' => 'shifts.users.assign'
+])->where('shift', '[0-9]+');

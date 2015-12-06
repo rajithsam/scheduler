@@ -5,6 +5,7 @@ namespace Scheduler\Providers;
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Route;
+use Scheduler\Shifts\Repository\ShiftRepository;
 use Scheduler\Users\Repository\UserRepository;
 
 class RouteServiceProvider extends ServiceProvider
@@ -30,6 +31,14 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('user', function($value) use ($userRepository)
         {
             return $userRepository->getOneByIdOrFail($value);
+        });
+
+        $shiftRepository = app(ShiftRepository::class);
+
+        Route::bind('shift', function($value) use ($shiftRepository)
+        {
+//            dd($value);
+            return $shiftRepository->getOneByIdOrFail($value);
         });
 
         parent::boot($router);

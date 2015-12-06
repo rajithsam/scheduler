@@ -2,11 +2,16 @@
 
 use Carbon\Carbon;
 use League\Fractal\Manager;
+use Scheduler\Shifts\Commands\AssignShift;
 use Scheduler\Shifts\Commands\CreateShift;
+use Scheduler\Shifts\Commands\UpdateShift;
+use Scheduler\Shifts\Contracts\Shift;
 use Scheduler\Shifts\Repository\ShiftRepository;
 use Scheduler\Shifts\Requests\ListShiftsRequest;
 use Scheduler\Shifts\Requests\StoreShiftRequest;
+use Scheduler\Shifts\Requests\UpdateShiftRequest;
 use Scheduler\Shifts\Transformer\ShiftTransformer;
+use Scheduler\Users\Contracts\User;
 
 /**
  * Class ShiftsController
@@ -62,5 +67,31 @@ class ShiftsController extends Controller
     {
         $shift = $this->dispatchFrom(CreateShift::class, $request);
         return $this->respondWithItem($shift, $this->shiftTransformer, ['manager', 'employee']);
+    }
+
+    /**
+     * @param Shift $shift
+     * @param UpdateShiftRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(Shift $shift, UpdateShiftRequest $request)
+    {
+        $shift = $this->dispatchFrom(UpdateShift::class, $request, ['shift' => $shift]);
+        return $this->respondWithItem($shift, $this->shiftTransformer);
+    }
+
+    /**
+     * @param Shift $shift
+     * @param User $user
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function assignUser(Shift $shift, User $user)
+    {
+        //Check that user has permission to edit this resource
+//        $this->authorizeUser($input[AuthHandler::TOKEN_ATTRIBUTE]->getMetaData('entity'), 'edit', 'shifts');
+
+        $shift = $this->dispatch(new AssignShift($shift, $user));
+
+        return $this->respondWithItem($shift, $this->shiftTransformer, ['manager','employee']);
     }
 }

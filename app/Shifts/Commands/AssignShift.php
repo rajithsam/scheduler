@@ -1,28 +1,47 @@
 <?php namespace Scheduler\Shifts\Commands;
 
+use Illuminate\Contracts\Bus\SelfHandling;
+use Scheduler\Shifts\Contracts\Shift;
+use Scheduler\Shifts\Repository\ShiftRepository;
+use Scheduler\Users\Contracts\User;
+
 /**
  * Class AssignShift
  * @package Scheduler\Shifts\Commands
  * @author Sam Tape <sctape@gmail.com>
  */
-class AssignShift
+class AssignShift implements SelfHandling
 {
     /**
-     * @var int
+     * @var Shift
      */
-    public $shift_id;
+    private $shift;
 
     /**
-     * @var int
+     * @var User
      */
-    public $employee_id;
+    private $user;
 
     /**
      * AssignShift constructor.
+     * @param Shift $shift
+     * @param User $user
      */
-    public function __construct($shift_id, $employee_id)
+    public function __construct(Shift $shift, User $user)
     {
-        $this->shift_id = $shift_id;
-        $this->employee_id = $employee_id;
+        $this->shift = $shift;
+        $this->user = $user;
+    }
+
+    /**
+     * @param ShiftRepository $shiftRepository
+     * @return Shift
+     */
+    public function handle(ShiftRepository $shiftRepository)
+    {
+        $this->shift->setEmployee($this->user);
+        $shiftRepository->update($this->shift);
+
+        return $this->shift;
     }
 }
