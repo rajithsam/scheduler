@@ -155,9 +155,7 @@ return [
         Scheduler\Providers\EventServiceProvider::class,
         Scheduler\Providers\RouteServiceProvider::class,
         Scheduler\Repository\Providers\DoctrineRepositoryServiceProvider::class,
-
-
-
+        Scheduler\Shifts\ShiftsServiceProvider::class,
     ],
 
     /*

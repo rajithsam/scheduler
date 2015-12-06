@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 Route::get('/users/{user}', [
     'uses' => 'UsersController@show',
@@ -33,4 +33,14 @@ Route::get('/users/{user}/hours', [
 Route::get('/users/{user}/coworkers', [
     'uses' => 'UsersController@listCoworkers',
     'as' => 'users.coworkers.list'
+]);
+
+Route::get('/shifts', [
+    'uses' => 'ShiftsController@index',
+    'as' => 'shifts.list'
+]);
+
+Route::post('/shifts/create', [
+    'uses' => 'ShiftsController@store',
+    'as' => 'shifts.store'
 ]);

@@ -103,4 +103,12 @@ class ShiftRepository extends EntityRepository implements DoctrineRepository
     }
 
 
+    /**
+     * @param null|object $entity
+     * @return void
+     */
+    public function update($entity = null)
+    {
+        $this->_em->flush($entity);
+    }
 }
