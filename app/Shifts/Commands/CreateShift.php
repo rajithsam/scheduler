@@ -1,8 +1,7 @@
 <?php namespace Scheduler\Shifts\Commands;
 
-use Illuminate\Auth\Guard;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Bus\SelfHandling;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Scheduler\Jobs\Job;
 use Scheduler\Shifts\Contracts\Shift;
 use Scheduler\Shifts\Repository\ShiftRepository;

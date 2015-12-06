@@ -25,10 +25,11 @@ class UpdateShift implements SelfHandling
      * @var string
      */
     public $end_time;
+
     /**
      * @var Shift
      */
-    private $shift;
+    public $shift;
 
     /**
      * UpdateShift constructor.
